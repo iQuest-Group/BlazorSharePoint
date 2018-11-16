@@ -6,6 +6,6 @@ namespace ScrabbleBlazor.Shared
 {
     public class TableSquare
     {
-        public char Letter { get; set; } 
+        public char? Letter { get; set; } 
     }
 }
