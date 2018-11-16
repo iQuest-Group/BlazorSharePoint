@@ -21,13 +21,6 @@ namespace ScrabbleBlazor.Server.Controllers
             gameInstance = game;
         }
 
-        public string ChangePlayer(string identifier)
-        {
-            CurrentStateService.Update(identifier);
-
-            return "done";
-        }
-
         public async Task<Player> Register(string identifier)
         {
             return await Game.Instance.EnsurePlayer(identifier);

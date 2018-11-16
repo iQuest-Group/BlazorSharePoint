@@ -16,15 +16,33 @@
     @RegisteredSuccessfully
 </h2>
 
-<RenderLetters Player="player"></RenderLetters>
+<table>
+    <tr>
+        <td>
+            <ScrabbleTableLayout Title="Scrabble Game" TableModel=table CurrentPlayer=player />
+        </td>
+        <td>
+            <PlayersList Players=allPlayers />
+        </td>
+     </tr>
+    <tr>
+        <td colspan="2" >
+            <RenderLetters Player="player"></RenderLetters>
+        </td>
+    </tr>
+    
+
 
 <ScrabbleTableLayout Title="Scrabble Game" TableModel=table CurrentPlayer=currentGamePlayer />
+</table>
 
 @functions {
     string CurrentUser;
     string RegisteredSuccessfully;
     Player player;
     Player currentGamePlayer;
+    List<Player> allPlayers;
+
     Game game;
 
     List<Table> table = null;
@@ -51,6 +69,7 @@
         List<Game> games = await Http.GetJsonAsync<List<Game>>("api/CurrentState/Get");
         game = games[0];
         currentGamePlayer = game.Players.Where(p => p.Identifier == CurrentUser).FirstOrDefault();
+        allPlayers = game.Players;
         table = new List<Table>() { game.Table };
     }
 }
