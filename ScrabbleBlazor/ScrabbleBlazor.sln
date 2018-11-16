@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28306.52
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScrabbleBlazor.Server", "ScrabbleBlazor.Server\ScrabbleBlazor.Server.csproj", "{D2313208-9742-4970-ACA9-172CF340499C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScrabbleBlazor.Server", "ScrabbleBlazor.Server\ScrabbleBlazor.Server.csproj", "{D2313208-9742-4970-ACA9-172CF340499C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScrabbleBlazor.Client", "ScrabbleBlazor.Client\ScrabbleBlazor.Client.csproj", "{B93488CF-DAAE-4C52-A9D5-41BA0D5BA46D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScrabbleBlazor.Client", "ScrabbleBlazor.Client\ScrabbleBlazor.Client.csproj", "{B93488CF-DAAE-4C52-A9D5-41BA0D5BA46D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScrabbleBlazor.Shared", "ScrabbleBlazor.Shared\ScrabbleBlazor.Shared.csproj", "{002D7879-A3F1-469D-9F5F-2FE5DD40C465}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScrabbleBlazor.Shared", "ScrabbleBlazor.Shared\ScrabbleBlazor.Shared.csproj", "{002D7879-A3F1-469D-9F5F-2FE5DD40C465}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

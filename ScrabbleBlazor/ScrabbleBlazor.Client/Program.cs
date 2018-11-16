@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Blazor.Hosting;
+﻿
+using Cloudcrate.AspNetCore.Blazor.Browser.Storage;
+using Microsoft.AspNetCore.Blazor.Browser.Services;
+using Microsoft.AspNetCore.Blazor.Hosting;
 
 namespace ScrabbleBlazor.Client
 {
@@ -6,6 +9,11 @@ namespace ScrabbleBlazor.Client
     {
         public static void Main(string[] args)
         {
+            var serviceProvider = new BrowserServiceProvider(services =>
+            {
+                services.AddStorage();
+            });
+
             CreateHostBuilder(args).Build().Run();
         }
 
