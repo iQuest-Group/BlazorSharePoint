@@ -1,0 +1,22 @@
+﻿@using ScrabbleBlazor.Shared.Model;
+
+<table>
+    @if (Players != null)
+    {
+        foreach (var player in Players)
+        {
+            <tr>
+                <td>
+                    @player.Identifier
+                </td>
+            </tr>
+        }
+    }
+</table>
+
+
+@functions {
+
+[Parameter] List<Player> Players { get; set; }
+
+}

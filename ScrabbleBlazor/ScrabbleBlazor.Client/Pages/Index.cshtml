@@ -16,32 +16,42 @@
     @RegisteredSuccessfully 
 </h2>
 
-
-        <RenderLetters Player="player"></RenderLetters>    
+<table>
+    <tr>
+        <td>Table Here</td>
+        <td><PlayersList Players="AllPlayers"></PlayersList></td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <RenderLetters Player="player"></RenderLetters>
+        </td>
+    </tr>
+</table>
     
 
     @functions {
-    string CurrentUser;
-    string RegisteredSuccessfully;
-    Player player;
+            string CurrentUser;
+            string RegisteredSuccessfully;
+            Player player;
+            List<Player> AllPlayers = new List<Player> { new Player { Identifier = "User1" }, new Player { Identifier = "User2" } };
 
 
-    protected override void OnInit()
-    {
-        if (Storage["SUserId"] == null)
+        protected override void OnInit()
         {
-            Storage["SUserId"] = "New player" + DateTime.Now.ToShortTimeString();
+            if (Storage["SUserId"] == null)
+            {
+                Storage["SUserId"] = "New player" + DateTime.Now.ToShortTimeString();
+            }
+            CurrentUser = Storage["SUserId"];
         }
-        CurrentUser = Storage["SUserId"];
-    }
 
-    protected async Task OnPlayerInit()
-    {
-        Storage["SUserId"] = CurrentUser;
+        protected async Task OnPlayerInit()
+        {
+            Storage["SUserId"] = CurrentUser;
 
-        player = await GameState.RegisterUser(CurrentUser);
-        RegisteredSuccessfully = player == null ? "There are already four players registered to this game!" : "You have been successfully registered! ";
+            player = await GameState.RegisterUser(CurrentUser);
+            RegisteredSuccessfully = player == null ? "There are already four players registered to this game!" : "You have been successfully registered! ";
 
 
-    }
+        }
     }
