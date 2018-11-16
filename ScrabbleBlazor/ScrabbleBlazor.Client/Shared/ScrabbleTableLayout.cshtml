@@ -28,7 +28,6 @@ else
                     </tr>
                 }
             }
-
         </tbody>
     </table>
 }
@@ -50,7 +49,10 @@ else
     void Clicked(UIEventArgs args, int localI, int localJ)
     {
         //Letter letter = new Letter('f', 3);
+        Console.WriteLine("On click current player"+CurrentPlayer);
+        Console.WriteLine("letters: " + CurrentPlayer.OwnLetters.Count);
         selectedPlayerLetter = CurrentPlayer.GetSelectedLetter();
+        Console.WriteLine("selected letter: " + selectedPlayerLetter);
         TableSquare updatedSquare = new TableSquare(selectedPlayerLetter.Value);
         TableModel[0].Squares[localI][localJ] = new TableSquare('a');
         StateHasChanged();
