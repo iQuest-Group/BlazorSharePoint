@@ -10,6 +10,11 @@
 
         public int Score { get; set; }
 
+        public Letter()
+        {
+
+        }
+
         public Letter(char value, int score)
         {
             this.Value = value;

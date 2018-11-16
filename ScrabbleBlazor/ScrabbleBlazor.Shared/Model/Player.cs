@@ -8,6 +8,11 @@
         
         public List<Letter> OwnLetters { get; set; }
 
+        public Player()
+        {
+
+        }
+
         public Player(string identifier, List<Letter> letters)
         {
             this.Identifier = identifier;

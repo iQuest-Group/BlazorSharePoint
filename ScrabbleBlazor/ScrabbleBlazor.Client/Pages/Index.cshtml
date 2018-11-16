@@ -1,5 +1,6 @@
 ﻿@using Cloudcrate.AspNetCore.Blazor.Browser.Storage;
 @using ScrabbleBlazor.Client.Services;
+@using ScrabbleBlazor.Shared.Model;
 @using ScrabbleBlazor.Shared
 @inject LocalStorage Storage
 @inject GameState GameState
@@ -7,13 +8,23 @@
 @page "/"
 
 
+
+
 <h1>Hello, @CurrentUser!</h1>
 
 <input bind=CurrentUser />
 <button title="Init player" onclick=@(() => OnPlayerInit())>Update Name</button>
 
-Welcome to your new app.
 
+<h2>
+    @RegisteredSuccessfully 
+</h2>
+
+
+        <RenderLetters Player="player"></RenderLetters>    
+    
+
+    @functions {
 <input bind="@RegisteredSuccessfully" />
 <SurveyPrompt Title="How is Blazor working for you?" />
 <ScrabbleTableLayout Title="Scrabble Game" TableModel=table/>
@@ -21,6 +32,8 @@ Welcome to your new app.
 @functions {
     string CurrentUser;
     string RegisteredSuccessfully;
+    Player player;
+
     Table table = null;
 
     protected override void OnInit()
@@ -33,11 +46,11 @@ Welcome to your new app.
         OnPlayerInit();       
     }
 
-    protected void OnPlayerInit()
+    protected async Task OnPlayerInit()
     {
         Storage["SUserId"] = CurrentUser;
 
-        var player = GameState.RegisterUser(CurrentUser);
+        player = await GameState.RegisterUser(CurrentUser);
         RegisteredSuccessfully = player == null ? "There are already four players registered to this game!" : "You have been successfully registered! ";
 
     }
@@ -47,4 +60,4 @@ Welcome to your new app.
         IEnumerable<Table> tableRows = await Http.GetJsonAsync<List<Table>>("api/SampleData/GetScrabbleTable");
         table = tableRows.FirstOrDefault();
     }
-}
+    }

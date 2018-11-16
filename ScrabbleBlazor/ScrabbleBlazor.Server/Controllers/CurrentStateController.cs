@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ScrabbleBlazor.Server.Models;
 using ScrabbleBlazor.Server.Services;
-using ScrabbleBlazor.Shared;
 using ScrabbleBlazor.Shared.Model;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ScrabbleBlazor.Server.Controllers
 {
@@ -11,9 +10,9 @@ namespace ScrabbleBlazor.Server.Controllers
     [ApiController]
     public class CurrentStateController : ControllerBase
     {
-        public CurrentState Get()
+        public IEnumerable<Game> Get()
         {
-            return CurrentStateService.GetCurrentState();
+            return new List<Game> { Game.Instance };
         }
 
         public string ChangePlayer(string identifier)
@@ -23,9 +22,9 @@ namespace ScrabbleBlazor.Server.Controllers
             return "done";
         }
 
-        public Player Register(string identifier)
+        public async Task<Player> Register(string identifier)
         {
-            return Get().Game.RegisterPlayer(identifier);
+            return await Game.Instance.EnsurePlayer(identifier);
         }
     }
 }

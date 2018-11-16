@@ -17,4 +17,10 @@
     <ProjectReference Include="..\ScrabbleBlazor.Shared\ScrabbleBlazor.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Pages\RenderLetters.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+  </ItemGroup>
+
 </Project>
