@@ -27,7 +27,7 @@
      </tr>
     <tr>
         <td colspan="2" >
-            <RenderLetters Player="player"></RenderLetters>
+            <RenderLetters Player="player" Game="game"></RenderLetters>
         </td>
     </tr>
 </table>
@@ -98,8 +98,8 @@
 
     protected async Task SendState()
     {
-        await Http.PostJsonAsync("api/CurrentState/post", game);
-        RefreshState();
+        await Http.PostJsonAsync("api/CurrentState/Post", new List<Game> { game});
+        await RefreshState();
     }
     //ScrabbleTableLayout ChildComponent1 = new ScrabbleTableLayout();
 

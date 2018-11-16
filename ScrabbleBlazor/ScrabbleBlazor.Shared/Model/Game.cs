@@ -42,6 +42,11 @@ namespace ScrabbleBlazor.Shared.Model
             {
                 if (player.Identifier.Equals(identifier))
                 {
+                    if (string.IsNullOrEmpty(CurrentPlayer))
+                    {
+                        CurrentPlayer = player.Identifier;
+                    }
+
                     return player;
                 }
             }
@@ -68,6 +73,30 @@ namespace ScrabbleBlazor.Shared.Model
         public async Task AddRandomLetters(Player player, int numberOfLetters)
         {
             player.OwnLetters.AddRange(this.LettersBag.GetRandomLetters(numberOfLetters));
+        }
+
+        public async Task SelectNextPlayer(Player player)
+        {
+            if (Players.Count > 1)
+            {
+                for(int i=0;i<Players.Count;i++)
+                {
+                    if (player.Identifier.Equals(Players[i].Identifier) && Players.Count > 1)
+                    {
+                        if (i < Players.Count - 1)
+                        {
+                            CurrentPlayer = Players[i+1].Identifier;
+                            return;
+                        }
+                        else
+                        {
+                            CurrentPlayer = Players[0].Identifier;
+                            return;
+                        }
+                    }
+                }
+            }
+            
         }
     }
 }

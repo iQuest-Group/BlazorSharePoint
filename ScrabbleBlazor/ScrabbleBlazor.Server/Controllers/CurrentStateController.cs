@@ -5,6 +5,7 @@ using ScrabbleBlazor.Shared.Constants;
 using ScrabbleBlazor.Shared.Model;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace ScrabbleBlazor.Server.Controllers
 {
@@ -17,10 +18,12 @@ namespace ScrabbleBlazor.Server.Controllers
             return new List<Game> { Game.Instance };
         }
 
-        public void Post(Game game)
+        [HttpPost]
+        public async Task<IEnumerable<Game>> Post([FromBody] IEnumerable<Game> games)
         {
             var gameInstance = Game.Instance;
-            gameInstance = game;
+            gameInstance = games.ToList()[0];
+            return null;
         }
 
         public async Task<Player> Register(string identifier)
@@ -33,6 +36,7 @@ namespace ScrabbleBlazor.Server.Controllers
             var player = await Game.Instance.EnsurePlayer(identifier);
             await Game.Instance.RemoveFromOwnLetter(player, word);
             await Game.Instance.AddRandomLetters(player, PlayerConstants.NumberOfPlayerLetters - player.OwnLetters.Count);
+            await Game.Instance.SelectNextPlayer(player);
         }
     }
 }
