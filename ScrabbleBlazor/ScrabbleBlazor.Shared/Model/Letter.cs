@@ -1,4 +1,4 @@
-﻿namespace ScrabbleBlazor.Shared
+﻿namespace ScrabbleBlazor.Shared.Model
 {
     using System;
     using System.Collections.Generic;
@@ -9,5 +9,11 @@
         public char Value { get; set; }
 
         public int Score { get; set; }
+
+        public Letter(char value, int score)
+        {
+            this.Value = value;
+            this.Score = score;
+        }
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ScrabbleBlazor.Shared
+﻿namespace ScrabbleBlazor.Shared.Model
 {
     public class Game
     {
@@ -14,9 +10,9 @@ namespace ScrabbleBlazor.Shared
         {
             this.LettersBag = new LetterSet();
             this.Players = new Player[PlayerConstants.NumberOfPlayers];
-            foreach(var player in this.Players)
+            for(int i=0;i<this.Players.Length;i++)
             {
-                player.OwnLetters = this.LettersBag.GetRandomLetters(PlayerConstants.NumberOfPlayerLetters);
+                this.Players[i] = new Player(LettersBag);
             }
         }
     }

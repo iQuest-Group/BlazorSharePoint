@@ -1,17 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ScrabbleBlazor.Shared
+﻿namespace ScrabbleBlazor.Shared.Model
 {
+    using System.Collections.Generic;
+
     public class Player
     {
-        public List<Letter> OwnLetters { get; set; }
+        private readonly LetterSet GameLetters;
+        public List<Letter> OwnLetters { get; private set; }
 
-        public Player(List<Letter> letters)
+        public Player(LetterSet letterSet)
         {
-            this.OwnLetters = letters;
+            this.GameLetters = letterSet;
+            this.OwnLetters = letterSet.GetRandomLetters(PlayerConstants.NumberOfPlayerLetters);
         }
 
+        public void RemoveFromOwnLetter(Letter selectedLetter)
+        {
+            this.OwnLetters.Remove(selectedLetter);
+        }
+
+        public void AddRandomLetters(int numberOfLetters)
+        {
+            this.OwnLetters.AddRange(this.GameLetters.GetRandomLetters(numberOfLetters));
+        }
     }
 }
