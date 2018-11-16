@@ -36,7 +36,6 @@
             Storage["SUserId"] = "New player" + DateTime.Now.ToShortTimeString();
         }
         CurrentUser = Storage["SUserId"];
-        OnPlayerInit();
     }
 
     protected async Task OnPlayerInit()
