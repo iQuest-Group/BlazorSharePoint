@@ -4,38 +4,38 @@
 
 <h1>Scrabble Game</h1>
 
-@if (tableSquares == null)
+@if (table == null)
 {
-    <p><em>Loading...</em></p>
+    <p><em>Loading table...</em></p>
 }
 else
 {
     <table class="table">
         <tbody>
-            @foreach (var x in tableSquares)
+            @foreach (var x in table)
             {
                 @x.Squares.Count
-                @x.PlayerCount
-            }
-            @*@for (var i = 0; i < tableSquares.Count; i++)
-        {
-            <tr>
-                @for (var j = 0; j < tableSquares[i].Count; j++)
+                @for (var i = 0; i < x.Squares.Count; i++)
                 {
-
-                    <td>@tableSquares[i][j].Letter</td>
+                    var list = x.Squares[i];
+                    <tr>
+                        @for (var j = 0; j < list.Count; j++)
+                        {
+                            <td>@list[j].Letter</td>
+                        }
+                    </tr>
                 }
-            </tr>
-        }*@
+            }
+
         </tbody>
     </table>
 }
 
 @functions {
-    IEnumerable<Table> tableSquares = new List<Table>();
+    IEnumerable<Table> table = new List<Table>();
 
     protected override async Task OnInitAsync()
     {
-        tableSquares = await Http.GetJsonAsync<List<Table>>("api/SampleData/GetScrabbleTable");
+        table = await Http.GetJsonAsync<List<Table>>("api/SampleData/GetScrabbleTable");
     }
 }
