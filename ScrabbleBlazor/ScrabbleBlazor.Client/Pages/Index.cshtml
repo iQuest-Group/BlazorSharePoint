@@ -33,17 +33,18 @@
 </table>
 
 <button title="Get state" onclick=@(() => RefreshState())>Refresh</button>
+<button title="End turn" onclick=@(() => SendState())>End Turn</button>
 
 @functions {
-    string CurrentUser;
-    string RegisteredSuccessfully;
-    Player player;
-    Player currentGamePlayer;
-    List<Player> allPlayers;
+        string CurrentUser;
+        string RegisteredSuccessfully;
+        Player player;
+        Player currentGamePlayer;
+        List<Player> allPlayers;
 
-    Game game;
+        Game game;
 
-    List<Table> table = null;
+        List<Table> table = null;
     protected override void OnInit()
     {
         if (Storage["SUserId"] == null)
@@ -95,5 +96,11 @@
         player = await GameState.RegisterUser(CurrentUser);
 
         Console.WriteLine(game.Players.Count.ToString() + "***");
+    }
+
+    protected async Task SendState()
+    {
+        await Http.PostJsonAsync("api/CurrentState/Post", new List<Game> { game});
+        await RefreshState();
     }
 }
