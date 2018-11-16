@@ -9,6 +9,7 @@ namespace ScrabbleBlazor.Client
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<Cloudcrate.AspNetCore.Blazor.Browser.Storage.LocalStorage>();
+            services.AddSingleton<ScrabbleBlazor.Shared.Model.Game>();
         }
 
         public void Configure(IBlazorApplicationBuilder app)

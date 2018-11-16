@@ -1,22 +1,33 @@
 ﻿@using Cloudcrate.AspNetCore.Blazor.Browser.Storage;
+@using ScrabbleBlazor.Shared.Model;
 @inject LocalStorage Storage
+@inject Game Game
 @page "/"
 
+       
+
 <h1>Hello, @CurrentUser!</h1>
+<input bind=CurrentUser />
+<button title="Init player" onclick=@(() => OnPlayerInit())>Update Name</button>
 
 Welcome to your new app.
 
 <SurveyPrompt Title="How is Blazor working for you?" />
 @functions {
-    string CurrentUser;
+            string CurrentUser;
 
-    protected override void OnInit()
+protected override void OnInit()
     {
-        if (Storage["Username"] == null)
+        if (Storage["SUserId"] == null)
         {
-            Storage["Username"] = "test" + DateTime.Now.ToShortTimeString();
+            Storage["SUserId"] = "New player" + DateTime.Now.ToShortTimeString();
         }
-        CurrentUser = Storage["Username"];
+        CurrentUser = Storage["SUserId"];
+        var player = Game.Instance.RegisterPlayer(CurrentUser);
+    }
 
+    protected void OnPlayerInit()
+    {
+        Storage["SUserId"] = CurrentUser;
     }
 }

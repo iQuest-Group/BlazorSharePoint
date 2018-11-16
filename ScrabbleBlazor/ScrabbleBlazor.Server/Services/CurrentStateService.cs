@@ -16,11 +16,6 @@ namespace ScrabbleBlazor.Server.Services
             _currentState.Table.Matrix[0, 2] = new TableSquare { Letter = 'A' };
             _currentState.Table.Matrix[0, 3] = new TableSquare { Letter = 'R' };
             _currentState.Table.Matrix[0, 4] = new TableSquare { Letter = 'T' };
-
-            _currentState.Players.Add(new Player("Andreea", new LetterSet()) { IsCurrentPlayer = true });
-            _currentState.Players.Add(new Player("Dan", new LetterSet()) { IsCurrentPlayer = true });
-            _currentState.Players.Add(new Player("Luci", new LetterSet()) { IsCurrentPlayer = true });
-            _currentState.Players.Add(new Player("Paula", new LetterSet()) { IsCurrentPlayer = true });
         }
 
         public static CurrentState GetCurrentState()
@@ -32,7 +27,7 @@ namespace ScrabbleBlazor.Server.Services
         {
             foreach (var player in _currentState.Players)
             {
-                player.IsCurrentPlayer = player.Identifier == identifier;
+               // player.IsCurrentPlayer = player.Identifier == identifier;
             }
         }
     }
