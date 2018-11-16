@@ -19,7 +19,7 @@
 <table>
     <tr>
         <td>
-            <ScrabbleTableLayout Title="Scrabble Game" TableModel=table CurrentPlayer=player />
+            <ScrabbleTableLayout Title="Scrabble Game" TableModel=table CurrentPlayer=currentGamePlayer />
         </td>
         <td>
             <PlayersList Players=allPlayers />
@@ -30,10 +30,6 @@
             <RenderLetters Player="player"></RenderLetters>
         </td>
     </tr>
-    
-
-
-<ScrabbleTableLayout Title="Scrabble Game" TableModel=table CurrentPlayer=currentGamePlayer />
 </table>
 
 @functions {

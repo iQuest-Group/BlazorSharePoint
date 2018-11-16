@@ -31,7 +31,6 @@ else
 
         </tbody>
     </table>
-    @selectedPlayerLetter
 }
 
 @functions {
@@ -44,15 +43,15 @@ else
     [Parameter]
     Player CurrentPlayer { get; set; }
 
-    private char selectedPlayerLetter;
+    private Letter selectedPlayerLetter;
 
     private string slectedrow = null;
 
     void Clicked(UIEventArgs args, int localI, int localJ)
     {
-        Letter letter = new Letter('f', 3);
-        selectedPlayerLetter = letter.Value;
-
+        //Letter letter = new Letter('f', 3);
+        selectedPlayerLetter = CurrentPlayer.GetSelectedLetter();
+        TableSquare updatedSquare = new TableSquare(selectedPlayerLetter.Value);
         TableModel[0].Squares[localI][localJ] = new TableSquare('a');
         StateHasChanged();
         Console.WriteLine(localI);
