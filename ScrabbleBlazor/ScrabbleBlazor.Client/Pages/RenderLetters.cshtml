@@ -1,0 +1,18 @@
+﻿@using ScrabbleBlazor.Shared.Model;
+
+    @if (Player != null)
+    {
+        foreach (var item in Player.OwnLetters)
+        {
+            <button type="button">
+                <span style="font-size:20px;">@item.Value</span>
+                <span style="font-size:10px;">@item.Score</span>
+            </button>
+        }
+    }
+
+    @functions {
+
+        [Parameter] Player Player { get; set; }
+
+    }

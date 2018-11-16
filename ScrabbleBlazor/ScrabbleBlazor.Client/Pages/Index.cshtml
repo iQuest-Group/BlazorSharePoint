@@ -11,27 +11,19 @@
 <input bind=CurrentUser />
 <button title="Init player" onclick=@(() => OnPlayerInit())>Update Name</button>
 
-Welcome to your new app.
 
-<input bind="@RegisteredSuccessfully" />
+<h2>
+    @RegisteredSuccessfully 
+</h2>
 
 
+        <RenderLetters Player="player"></RenderLetters>    
+    
 
-
-<SurveyPrompt Title="How is Blazor working for you?" />
-@if (player != null) {
-    foreach (var item in player.OwnLetters)
-    {
-    <button type="button" aria-label="@(item.Value)" value="@(item.Value)">
-        <span aria-hidden="true">&times;</span>
-    </button>
-    }
-}
-
-@functions {
-        string CurrentUser;
-        string RegisteredSuccessfully;
-        Player player;
+    @functions {
+    string CurrentUser;
+    string RegisteredSuccessfully;
+    Player player;
 
 
     protected override void OnInit()
@@ -52,4 +44,4 @@ Welcome to your new app.
 
 
     }
-}
+    }
