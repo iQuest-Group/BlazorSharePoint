@@ -72,9 +72,6 @@
     {
         List<Game> games = await Http.GetJsonAsync<List<Game>>("api/CurrentState/Get");
         game = games[0];
-        //Console.WriteLine("Current user:" + CurrentUser);
-        //currentGamePlayer = game.Players.Where(p => p.Identifier == CurrentUser).FirstOrDefault();
-        //Console.WriteLine("Current game player:" + currentGamePlayer);
         allPlayers = game.Players;
         table = new List<Table>() { game.Table };
         Console.WriteLine(allPlayers.Count.ToString() + "***");
