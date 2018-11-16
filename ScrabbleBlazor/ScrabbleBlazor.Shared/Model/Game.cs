@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ScrabbleBlazor.Shared.Model
 {
@@ -35,7 +36,7 @@ namespace ScrabbleBlazor.Shared.Model
             }
         }
 
-        public Player RegisterPlayer(string identifier)
+        public async Task<Player> RegisterPlayer(string identifier)
         {
             if (this.Players.Count < PlayerConstants.NumberOfPlayers)
             {

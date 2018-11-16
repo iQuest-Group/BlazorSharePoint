@@ -1,10 +1,11 @@
 ﻿@using Cloudcrate.AspNetCore.Blazor.Browser.Storage;
 @using ScrabbleBlazor.Client.Services;
+@using ScrabbleBlazor.Shared.Model;
 @inject LocalStorage Storage
 @inject GameState GameState
 @page "/"
 
-       
+
 
 <h1>Hello, @CurrentUser!</h1>
 <input bind=CurrentUser />
@@ -12,11 +13,26 @@
 
 Welcome to your new app.
 
-<input bind="@RegisteredSuccessfully"/>
+<input bind="@RegisteredSuccessfully" />
+
+
+
+
 <SurveyPrompt Title="How is Blazor working for you?" />
+@if (player != null) {
+    foreach (var item in player.OwnLetters)
+    {
+    <button type="button" aria-label="@(item.Value)" value="@(item.Value)">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    }
+}
+
 @functions {
-    string CurrentUser;
-    string RegisteredSuccessfully;
+        string CurrentUser;
+        string RegisteredSuccessfully;
+        Player player;
+
 
     protected override void OnInit()
     {
@@ -25,15 +41,15 @@ Welcome to your new app.
             Storage["SUserId"] = "New player" + DateTime.Now.ToShortTimeString();
         }
         CurrentUser = Storage["SUserId"];
-        OnPlayerInit();
     }
 
-    protected void OnPlayerInit()
+    protected async Task OnPlayerInit()
     {
         Storage["SUserId"] = CurrentUser;
 
-        var player = GameState.RegisterUser(CurrentUser);
+        player = await GameState.RegisterUser(CurrentUser);
         RegisteredSuccessfully = player == null ? "There are already four players registered to this game!" : "You have been successfully registered! ";
+
 
     }
 }

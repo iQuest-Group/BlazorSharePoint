@@ -4,6 +4,7 @@ using ScrabbleBlazor.Server.Services;
 using ScrabbleBlazor.Shared;
 using ScrabbleBlazor.Shared.Model;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ScrabbleBlazor.Server.Controllers
 {
@@ -23,9 +24,9 @@ namespace ScrabbleBlazor.Server.Controllers
             return "done";
         }
 
-        public Player Register(string identifier)
+        public async Task<Player> Register(string identifier)
         {
-            return Get().Game.RegisterPlayer(identifier);
+            return await Get().Game.RegisterPlayer(identifier);
         }
     }
 }
