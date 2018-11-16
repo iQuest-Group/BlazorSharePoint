@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Serialization;
+using ScrabbleBlazor.Server.Services;
 using System.Linq;
 using System.Net.Mime;
 
@@ -25,6 +26,8 @@ namespace ScrabbleBlazor.Server
                     WasmMediaTypeNames.Application.Wasm,
                 });
             });
+
+            CurrentStateService.Initialize();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

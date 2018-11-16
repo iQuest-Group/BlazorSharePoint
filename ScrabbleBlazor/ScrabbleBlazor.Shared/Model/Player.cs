@@ -6,11 +6,16 @@ namespace ScrabbleBlazor.Shared
 {
     public class Player
     {
+        public string Identifier { get; set; }
+
+        public bool IsCurrentPlayer { get; set; }
+
         public List<Letter> OwnLetters { get; set; }
 
-        public Player(List<Letter> letters)
+        public Player(string identifier, List<Letter> letters)
         {
-            this.OwnLetters = letters;
+            Identifier = identifier;
+            OwnLetters = letters;
         }
 
     }

@@ -1,15 +1,30 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using ScrabbleBlazor.Server.Models;
+using ScrabbleBlazor.Server.Services;
+using ScrabbleBlazor.Shared;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 
 namespace ScrabbleBlazor.Server.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class CurrentStateController : ControllerBase
     {
+        public CurrentState Get()
+        {
+            return CurrentStateService.GetCurrentState();
+        }
+
+        public string ChangePlayer(string identifier)
+        {
+            CurrentStateService.Update(identifier);
+
+            return "done";
+        }
+
+        //public void Post(string identifier, Table table, List<Letter> playerLetters)
+        //{
+
+        //}
     }
 }
