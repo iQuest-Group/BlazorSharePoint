@@ -19,8 +19,7 @@ namespace ScrabbleBlazor.Client.Services
 
         public async Task<Player> RegisterUser(string identifier)
         {
-            return await http.PostJsonAsync<Player>("/api/currentstate/register", identifier);
-            
+            return await http.GetJsonAsync<Player>("/api/currentstate/register?identifier=" + identifier);
         }
 
     }
