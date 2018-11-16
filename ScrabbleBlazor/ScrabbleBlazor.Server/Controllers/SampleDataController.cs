@@ -31,12 +31,12 @@ namespace ScrabbleBlazor.Server.Controllers
             Table scrabbbleTable = new Table();
             List<List<TableSquare>> table = new List<List<TableSquare>>
             {
-                 new List<TableSquare>{ new TableSquare('a'), new TableSquare('a'), new TableSquare('a') },
-                 new List<TableSquare>{ new TableSquare('b'), new TableSquare('b'), new TableSquare('b') },
-                 new List<TableSquare>{ new TableSquare('c'), new TableSquare('c'), new TableSquare('c') },
-                 new List<TableSquare>{ new TableSquare('d'), new TableSquare('c'), new TableSquare('c') },
-                 new List<TableSquare>{ new TableSquare('r'), new TableSquare('c'), new TableSquare('h') },
-                 new List<TableSquare>{ new TableSquare('g'), new TableSquare('c'), new TableSquare('f') }
+                 //new List<TableSquare>{ new TableSquare('a'), new TableSquare('a'), new TableSquare('a') },
+                 //new List<TableSquare>{ new TableSquare('b'), new TableSquare('b'), new TableSquare('b') },
+                 //new List<TableSquare>{ new TableSquare('c'), new TableSquare('c'), new TableSquare('c') },
+                 //new List<TableSquare>{ new TableSquare('d'), new TableSquare('c'), new TableSquare('c') },
+                 //new List<TableSquare>{ new TableSquare('r'), new TableSquare('c'), new TableSquare('h') },
+                 //new List<TableSquare>{ new TableSquare('g'), new TableSquare('c'), new TableSquare('f') }
 
             };
             scrabbbleTable.Squares = table;

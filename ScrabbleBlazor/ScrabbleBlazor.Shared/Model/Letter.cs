@@ -6,7 +6,7 @@
 
     public class Letter
     {
-        public char Value { get; set; }
+        public string Value { get; set; }
 
         public int Score { get; set; }
 
@@ -20,7 +20,7 @@
             this.IsUsed = false;
         }
 
-        public Letter(char value, int score)
+        public Letter(string value, int score)
         {
             this.Value = value;
             this.Score = score;

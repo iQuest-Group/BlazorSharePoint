@@ -36,15 +36,15 @@
 <button title="End turn" onclick=@(() => SendState())>End Turn</button>
 
 @functions {
-        string CurrentUser;
-        string RegisteredSuccessfully;
-        Player player;
-        Player currentGamePlayer;
-        List<Player> allPlayers;
+    string CurrentUser;
+    string RegisteredSuccessfully;
+    Player player;
+    Player currentGamePlayer;
+    List<Player> allPlayers;
 
-        Game game;
+    Game game;
 
-        List<Table> table = null;
+    List<Table> table = null;
     protected override void OnInit()
     {
         if (Storage["SUserId"] == null)
@@ -100,6 +100,10 @@
 
     protected async Task SendState()
     {
+
+        game.LettersBag = null;
+        game.Players[0].OwnLetters = null;
+        //game.Table.Squares[0][0].Letter = 'A';
         await Http.PostJsonAsync("api/CurrentState/Post", new List<Game> { game});
         await RefreshState();
     }

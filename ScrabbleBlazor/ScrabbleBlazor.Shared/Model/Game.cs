@@ -7,7 +7,7 @@ namespace ScrabbleBlazor.Shared.Model
     {
         public List<Player> Players { get; set; }
 
-        public LetterSet LettersBag { get; }
+        public LetterSet LettersBag { get; set; }
 
         public string CurrentPlayer { get; set; }
 

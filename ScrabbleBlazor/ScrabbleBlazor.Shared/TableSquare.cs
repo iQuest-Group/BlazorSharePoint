@@ -12,11 +12,11 @@ namespace ScrabbleBlazor.Shared
 
         }
 
-        public TableSquare(char? letter)
+        public TableSquare(string letter)
         {
             this.Letter = letter;
         }
 
-        public char? Letter { get; set; } 
+        public string Letter { get; set; } 
     }
 }
