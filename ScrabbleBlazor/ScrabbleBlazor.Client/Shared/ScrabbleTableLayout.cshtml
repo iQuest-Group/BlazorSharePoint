@@ -1,20 +1,19 @@
-﻿@using ScrabbleBlazor.Shared
-@page "/fetchdata"
+﻿@inherits BlazorLayoutComponent
+@using ScrabbleBlazor.Shared
 @inject HttpClient Http
 
-<h1>Scrabble Game</h1>
+<h1>@Title</h1>
 
-@if (table == null)
+@if (@TableModel == null)
 {
     <p><em>Loading table...</em></p>
 }
 else
 {
-    <table class="table">
+    <table class="table table-bordered">
         <tbody>
-            @foreach (var x in table)
+            @foreach (var x in TableModel)
             {
-                @x.Squares.Count
                 @for (var i = 0; i < x.Squares.Count; i++)
                 {
                     var list = x.Squares[i];
@@ -32,10 +31,9 @@ else
 }
 
 @functions {
-    IEnumerable<Table> table = new List<Table>();
+    [Parameter]
+    string Title { get; set; }
 
-    protected override async Task OnInitAsync()
-    {
-        table = await Http.GetJsonAsync<List<Table>>("api/SampleData/GetScrabbleTable");
-    }
+    [Parameter]
+    List<Table> TableModel { get; set; }
 }

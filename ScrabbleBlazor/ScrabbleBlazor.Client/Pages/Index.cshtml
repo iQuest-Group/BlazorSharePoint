@@ -1,24 +1,24 @@
 ﻿@using Cloudcrate.AspNetCore.Blazor.Browser.Storage;
 @using ScrabbleBlazor.Client.Services;
 @using ScrabbleBlazor.Shared.Model;
+@using ScrabbleBlazor.Shared
 @inject LocalStorage Storage
 @inject GameState GameState
+@inject HttpClient Http
 @page "/"
 
-
-
 <h1>Hello, @CurrentUser!</h1>
+
 <input bind=CurrentUser />
 <button title="Init player" onclick=@(() => OnPlayerInit())>Update Name</button>
 
-
 <h2>
-    @RegisteredSuccessfully 
+    @RegisteredSuccessfully
 </h2>
 
 <table>
     <tr>
-        <td>Table Here</td>
+        <td><ScrabbleTableLayout Title="Scrabble Game" TableModel=table /></td>
         <td><PlayersList Players="AllPlayers"></PlayersList></td>
     </tr>
     <tr>
@@ -35,15 +35,19 @@
             Player player;
             List<Player> AllPlayers = new List<Player> { new Player { Identifier = "User1" }, new Player { Identifier = "User2" } };
 
+    Game game;
 
-        protected override void OnInit()
+    List<Table> table = null;
+
+    protected override void OnInit()
+    {
+        if (Storage["SUserId"] == null)
         {
-            if (Storage["SUserId"] == null)
-            {
-                Storage["SUserId"] = "New player" + DateTime.Now.ToShortTimeString();
-            }
-            CurrentUser = Storage["SUserId"];
+            Storage["SUserId"] = "New player" + DateTime.Now.ToShortTimeString();
         }
+        CurrentUser = Storage["SUserId"];
+        OnPlayerInit();
+    }
 
         protected async Task OnPlayerInit()
         {
@@ -52,6 +56,12 @@
             player = await GameState.RegisterUser(CurrentUser);
             RegisteredSuccessfully = player == null ? "There are already four players registered to this game!" : "You have been successfully registered! ";
 
-
-        }
     }
+
+    protected override async Task OnInitAsync()
+    {
+        List<Game> games = await Http.GetJsonAsync<List<Game>>("api/CurrentState/Get");
+        game = games[0];
+        table = new List<Table>() { game.Table };
+    }
+}

@@ -26,38 +26,22 @@ namespace ScrabbleBlazor.Server.Controllers
             });
         }
 
-        public IEnumerable<Table> GetScrabbleTable()
+        public async Task<IEnumerable<Table>> GetScrabbleTable()
         {
             Table scrabbbleTable = new Table();
             List<List<TableSquare>> table = new List<List<TableSquare>>
             {
+                 new List<TableSquare>{ new TableSquare('a'), new TableSquare('a'), new TableSquare('a') },
                  new List<TableSquare>{ new TableSquare('b'), new TableSquare('b'), new TableSquare('b') },
-                  new List<TableSquare>{ new TableSquare('b'), new TableSquare('b'), new TableSquare('b') },
-                   new List<TableSquare>{ new TableSquare('b'), new TableSquare('b'), new TableSquare('b') }
-            };
-        //    {new TableSquare('b'), new TableSquare('b'), new TableSquare('b')
-        //                                    {new List<TableSquare>{ new TableSquare('b'), new TableSquare('b'), new TableSquare('b') }
-        //                                      new List<TableSquare> { new TableSquare('b'), new TableSquare('b'), new TableSquare('b') },
-        //                                      new List<TableSquare>{ new TableSquare('b'), new TableSquare('b'), new TableSquare('b') }
-        //};
-            //TableSquare[] table = new TableSquare[6]
-            //            {new TableSquare('a'),new TableSquare('b') ,new TableSquare('c'),new TableSquare('d'),new TableSquare('e'),new TableSquare('f')};
+                 new List<TableSquare>{ new TableSquare('c'), new TableSquare('c'), new TableSquare('c') },
+                 new List<TableSquare>{ new TableSquare('d'), new TableSquare('c'), new TableSquare('c') },
+                 new List<TableSquare>{ new TableSquare('r'), new TableSquare('c'), new TableSquare('h') },
+                 new List<TableSquare>{ new TableSquare('g'), new TableSquare('c'), new TableSquare('f') }
 
+            };
             scrabbbleTable.Squares = table;
             scrabbbleTable.PlayerCount = 5;
             return new List<Table>() { scrabbbleTable };
         }
-
-        //public List<List<TableSquare>> GetScrabbleTable()
-        //{
-        //    Table scrabbbleTable = new Table();
-        //    List<List<TableSquare>> table = new List<List<TableSquare>>
-        //                            {new List<TableSquare>{ new TableSquare('b'), new TableSquare('b'), new TableSquare('b') },
-        //                              new List<TableSquare> { new TableSquare('b'), new TableSquare('b'), new TableSquare('b') },
-        //                              new List<TableSquare>{ new TableSquare('b'), new TableSquare('b'), new TableSquare('b') } };
-
-        //    scrabbbleTable.Squares = table;
-        //    return table;
-        //}
     }
 }
