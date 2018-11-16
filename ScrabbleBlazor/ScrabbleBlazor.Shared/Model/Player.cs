@@ -8,6 +8,7 @@
 
         public bool IsCurrentPlayer { get; set; }
 
+        private readonly LetterSet GameLetters;
         public List<Letter> OwnLetters { get; set; }
 
         public Player(string identifier, LetterSet letterSet)

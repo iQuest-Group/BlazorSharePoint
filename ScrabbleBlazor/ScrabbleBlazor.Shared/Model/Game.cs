@@ -12,7 +12,7 @@
             this.Players = new Player[PlayerConstants.NumberOfPlayers];
             for(int i=0;i<this.Players.Length;i++)
             {
-                this.Players[i] = new Player(LettersBag);
+                this.Players[i] = new Player("", LettersBag);
             }
         }
     }

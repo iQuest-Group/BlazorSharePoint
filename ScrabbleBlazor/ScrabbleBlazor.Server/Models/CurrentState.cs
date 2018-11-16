@@ -1,4 +1,5 @@
 ﻿using ScrabbleBlazor.Shared;
+using ScrabbleBlazor.Shared.Model;
 using System.Collections.Generic;
 
 namespace ScrabbleBlazor.Server.Models

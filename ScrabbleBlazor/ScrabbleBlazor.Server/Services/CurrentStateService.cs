@@ -1,5 +1,6 @@
 ﻿using ScrabbleBlazor.Server.Models;
 using ScrabbleBlazor.Shared;
+using ScrabbleBlazor.Shared.Model;
 using System.Collections.Generic;
 
 namespace ScrabbleBlazor.Server.Services
@@ -16,31 +17,10 @@ namespace ScrabbleBlazor.Server.Services
             _currentState.Table.Matrix[0, 3] = new TableSquare { Letter = 'R' };
             _currentState.Table.Matrix[0, 4] = new TableSquare { Letter = 'T' };
 
-            _currentState.Players.Add(new Player("Andreea", new List<Letter>
-            {
-                new Letter { Value = 'A' },
-                new Letter { Value = 'Z' }
-            })
-            { IsCurrentPlayer = true }
-            );
-
-            _currentState.Players.Add(new Player("Dan", new List<Letter>
-            {
-                new Letter { Value = 'B' },
-                new Letter { Value = 'I' }
-            }));
-
-            _currentState.Players.Add(new Player("Luci", new List<Letter>
-            {
-                new Letter { Value = 'T' },
-                new Letter { Value = 'D' }
-            }));
-
-            _currentState.Players.Add(new Player("Paula", new List<Letter>
-            {
-                new Letter { Value = 'O' },
-                new Letter { Value = 'N' }
-            }));
+            _currentState.Players.Add(new Player("Andreea", new LetterSet()) { IsCurrentPlayer = true });
+            _currentState.Players.Add(new Player("Dan", new LetterSet()) { IsCurrentPlayer = true });
+            _currentState.Players.Add(new Player("Luci", new LetterSet()) { IsCurrentPlayer = true });
+            _currentState.Players.Add(new Player("Paula", new LetterSet()) { IsCurrentPlayer = true });
         }
 
         public static CurrentState GetCurrentState()
