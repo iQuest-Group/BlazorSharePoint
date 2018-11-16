@@ -1,5 +1,6 @@
 ﻿@inherits BlazorLayoutComponent
 @using ScrabbleBlazor.Shared
+@using ScrabbleBlazor.Shared.Model;
 @inject HttpClient Http
 
 <h1>@Title</h1>
@@ -20,7 +21,7 @@ else
                     <tr>
                         @for (var j = 0; j < list.Count; j++)
                         {
-                            <td>@list[j].Letter</td>
+                            <td onclick="@(() => SetSelectedLetter())">@list[j].Letter</td>
                         }
                     </tr>
                 }
@@ -28,6 +29,8 @@ else
 
         </tbody>
     </table>
+    @selectedPlayerLetter
+    @TableModel.FirstOrDefault().Squares.Count
 }
 
 @functions {
@@ -36,4 +39,15 @@ else
 
     [Parameter]
     List<Table> TableModel { get; set; }
+
+    [Parameter]
+    Player CurrentPlayer { get; set; }
+
+    private char selectedPlayerLetter;
+
+    protected async Task SetSelectedLetter()
+    {
+        Letter letter = CurrentPlayer.GetSelectedLetter();
+        selectedPlayerLetter = '6';
+    }
 }
