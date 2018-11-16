@@ -55,18 +55,23 @@
 
     protected async Task OnPlayerInit()
     {
+
         Storage["SUserId"] = CurrentUser;
 
         player = await GameState.RegisterUser(CurrentUser);
         RegisteredSuccessfully = player == null ? "There are already four players registered to this game!" : "You have been successfully registered! ";
 
+        List<Game> games = await Http.GetJsonAsync<List<Game>>("api/CurrentState/Get");
+        game = games[0];
+        Console.WriteLine("Current user:" + CurrentUser);
+        currentGamePlayer = game.Players.Where(p => p.Identifier == CurrentUser).FirstOrDefault();
+        Console.WriteLine("Current game player:" + currentGamePlayer);
     }
 
     protected override async Task OnInitAsync()
     {
         List<Game> games = await Http.GetJsonAsync<List<Game>>("api/CurrentState/Get");
         game = games[0];
-        currentGamePlayer = game.Players.Where(p => p.Identifier == CurrentUser).FirstOrDefault();
         allPlayers = game.Players;
         table = new List<Table>() { game.Table };
         Console.WriteLine(allPlayers.Count.ToString() + "***");
