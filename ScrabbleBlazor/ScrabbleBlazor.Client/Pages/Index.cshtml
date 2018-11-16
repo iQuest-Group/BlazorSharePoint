@@ -36,15 +36,14 @@
 <button title="End turn" onclick=@(() => SendState())>End Turn</button>
 
 @functions {
-        string CurrentUser;
-        string RegisteredSuccessfully;
-        Player player;
-        Player currentGamePlayer;
-        List<Player> allPlayers;
+    string CurrentUser;
+    string RegisteredSuccessfully;
+    Player player;
+    Player currentGamePlayer;
+    List<Player> allPlayers;
+    Game game;
+    List<Table> table = null;
 
-        Game game;
-
-        List<Table> table = null;
     protected override void OnInit()
     {
         if (Storage["SUserId"] == null)
@@ -85,7 +84,6 @@
 
         await Http.PostJsonAsync<List<Game>>("/api/CurrentState/Get", game);
 
-
         List<Game> games = await Http.GetJsonAsync<List<Game>>("api/CurrentState/Get");
         game = games[0];
         allPlayers = game.Players;
@@ -103,4 +101,16 @@
         await Http.PostJsonAsync("api/CurrentState/Post", new List<Game> { game});
         await RefreshState();
     }
+    //ScrabbleTableLayout ChildComponent1 = new ScrabbleTableLayout();
+
+    //protected override void OnAfterRender()
+    //{
+    //    ChildComponent1.ModelChanged += ChildFiredEvent;
+    //}
+
+    //public void ChildFiredEvent(List<Table> tables)
+    //{
+    //    table = tables;
+    //    StateHasChanged();
+    //}
 }
