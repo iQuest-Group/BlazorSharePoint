@@ -60,7 +60,7 @@ namespace ScrabbleBlazor.Shared.Model
         {
             foreach(char c in wordCreated)
             {
-                var letterFound = player.OwnLetters.Find(x => x.Value.Equals(c));
+                var letterFound = player.OwnLetters.Find(x => x.Value==c);
                 player.OwnLetters.Remove(letterFound);
             }
         }

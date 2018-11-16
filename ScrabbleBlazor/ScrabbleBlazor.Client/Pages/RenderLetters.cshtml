@@ -17,7 +17,7 @@
     }
 }
 
-<button type="button" onclick=@(() => OnSubmitWord())></button>
+<button type="button" onclick=@(() => OnSubmitWord())>Submit</button>
 
 @functions {
 
@@ -26,26 +26,24 @@
     void OnSelectLetter(Letter letter)
     {
         letter.IsSelected = !letter.IsSelected;
-        if (Storage["CurrentWord"] != null)
-        {
-            Storage["CurrentWord"] = Storage["CurrentWord"] + letter.Value;
-        }
-        else
-        {
-            Storage["CurrentWord"] = letter.Value.ToString();
-        }
+
+
+        Storage["LetterSelected"] = letter.Value.ToString();
     }
 
 
     protected async Task OnSubmitWord()
     {
-        await GameState.SubmitWord(Player.Identifier, Storage["CurrentWord"]);
 
-
-        if (Storage["CurrentWord"] != null)
+        var word = string.Empty;
+        foreach(var c in Player.OwnLetters)
         {
-            Storage["CurrentWord"] = string.Empty;
+            if(c.IsSelected)
+            {
+                word += c.Value;
+            }
         }
+        await GameState.SubmitWord(Player.Identifier, word);
     }
 
 }

@@ -24,7 +24,7 @@ namespace ScrabbleBlazor.Client.Services
 
         public async Task SubmitWord(string identifier, string word)
         {
-            await http.GetAsync(string.Format("/api/currentstate/SubmitWord?identifier={0}&word={1}" + identifier, word));
+            await http.GetAsync(string.Format("/api/currentstate/SubmitWord?identifier={0}&word={1}", identifier, word));
         }
         
 
