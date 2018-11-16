@@ -11,11 +11,11 @@ namespace ScrabbleBlazor.Server.Services
 
         public static void Initialize()
         {
-            _currentState.Table.Matrix[0, 0] = new TableSquare { Letter = 'S' };
-            _currentState.Table.Matrix[0, 1] = new TableSquare { Letter = 'T' };
-            _currentState.Table.Matrix[0, 2] = new TableSquare { Letter = 'A' };
-            _currentState.Table.Matrix[0, 3] = new TableSquare { Letter = 'R' };
-            _currentState.Table.Matrix[0, 4] = new TableSquare { Letter = 'T' };
+            _currentState.Game.Table.Matrix[0, 0] = new TableSquare { Letter = 'S' };
+            _currentState.Game.Table.Matrix[0, 1] = new TableSquare { Letter = 'T' };
+            _currentState.Game.Table.Matrix[0, 2] = new TableSquare { Letter = 'A' };
+            _currentState.Game.Table.Matrix[0, 3] = new TableSquare { Letter = 'R' };
+            _currentState.Game.Table.Matrix[0, 4] = new TableSquare { Letter = 'T' };
         }
 
         public static CurrentState GetCurrentState()
@@ -25,10 +25,10 @@ namespace ScrabbleBlazor.Server.Services
 
         public static void Update(string identifier)
         {
-            foreach (var player in _currentState.Players)
-            {
-               // player.IsCurrentPlayer = player.Identifier == identifier;
-            }
+            //foreach (var player in _currentState.Players)
+            //{
+            //   // player.IsCurrentPlayer = player.Identifier == identifier;
+            //}
         }
     }
 }

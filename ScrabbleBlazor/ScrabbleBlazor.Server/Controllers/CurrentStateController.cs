@@ -2,6 +2,7 @@
 using ScrabbleBlazor.Server.Models;
 using ScrabbleBlazor.Server.Services;
 using ScrabbleBlazor.Shared;
+using ScrabbleBlazor.Shared.Model;
 using System.Collections.Generic;
 
 namespace ScrabbleBlazor.Server.Controllers
@@ -22,9 +23,9 @@ namespace ScrabbleBlazor.Server.Controllers
             return "done";
         }
 
-        //public void Post(string identifier, Table table, List<Letter> playerLetters)
-        //{
-
-        //}
+        public Player Register(string identifier)
+        {
+            return Get().Game.RegisterPlayer(identifier);
+        }
     }
 }

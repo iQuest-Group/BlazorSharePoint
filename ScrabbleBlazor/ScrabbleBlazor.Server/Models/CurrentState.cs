@@ -6,8 +6,6 @@ namespace ScrabbleBlazor.Server.Models
 {
     public class CurrentState
     {
-        public Table Table { get; } = new Table();
-
-        public List<Player> Players { get; } = new List<Player>();
+        public Game Game { get { return Game.Instance; } }
     }
 }

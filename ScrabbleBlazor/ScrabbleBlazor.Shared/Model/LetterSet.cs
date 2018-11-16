@@ -35,6 +35,7 @@
 
         private void InitializeLetterSet()
         {
+            this.AllLetters = new List<Letter>();
             foreach(var letterConstant in LetterConstants.LettersGame)
             {
                 var letter = new Letter(letterConstant.Item1, letterConstant.Item2);

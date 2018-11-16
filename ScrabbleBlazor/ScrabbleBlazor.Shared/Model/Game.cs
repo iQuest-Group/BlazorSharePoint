@@ -10,11 +10,11 @@ namespace ScrabbleBlazor.Shared.Model
 
         public string CurrentPlayer { get; set; }
 
-        public Table TableGame { get; set; }
+        public Table Table { get; set; }
 
         private Game()
         {
-            this.TableGame = new Table();
+            this.Table = new Table();
             this.LettersBag = new LetterSet();
             this.Players = new List<Player>();
             
@@ -37,10 +37,14 @@ namespace ScrabbleBlazor.Shared.Model
 
         public Player RegisterPlayer(string identifier)
         {
-            var player = new Player(identifier, this.LettersBag.GetRandomLetters(PlayerConstants.NumberOfPlayerLetters));
-            this.Players.Add(player);
-            return player;
-           
+            if (this.Players.Count < PlayerConstants.NumberOfPlayers)
+            {
+                var player = new Player(identifier, this.LettersBag.GetRandomLetters(PlayerConstants.NumberOfPlayerLetters));
+                this.Players.Add(player);
+                return player;
+            }
+
+            return null;           
         }
 
         public void RemoveFromOwnLetter(Player player, Letter selectedLetter)
