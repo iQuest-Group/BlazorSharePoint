@@ -44,9 +44,16 @@ else
     [Parameter]
     Player CurrentPlayer { get; set; }
 
+    //[Parameter]
+    //public Action<List<Table>> ModelChanged { get; set; }
+
     private Letter selectedPlayerLetter;
 
-    private string slectedrow = null;
+    //void ChangeTheYear()
+    //{
+    //    TableModel = this.TableModel;
+    //    ModelChanged?.Invoke(TableModel);
+    //}
 
     void Clicked(UIEventArgs args, int localI, int localJ)
     {
