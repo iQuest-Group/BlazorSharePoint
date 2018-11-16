@@ -29,20 +29,25 @@ else
 
         </tbody>
     </table>
+    @selectedPlayerLetter
+    @TableModel.FirstOrDefault().Squares.Count
 }
 
 @functions {
-[Parameter]
-string Title { get; set; }
+    [Parameter]
+    string Title { get; set; }
 
-[Parameter]
-List<Table> TableModel { get; set; }
+    [Parameter]
+    List<Table> TableModel { get; set; }
 
-[Parameter]
-Player CurrentPlayer { get; set; }
+    [Parameter]
+    Player CurrentPlayer { get; set; }
 
-protected async Task SetSelectedLetter()
-{
-        CurrentPlayer.OwnLetters.
-}
+    private char selectedPlayerLetter;
+
+    protected async Task SetSelectedLetter()
+    {
+        Letter letter = CurrentPlayer.GetSelectedLetter();
+        selectedPlayerLetter = '6';
+    }
 }

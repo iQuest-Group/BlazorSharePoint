@@ -10,6 +10,9 @@
 
         public int Score { get; set; }
 
+        public bool IsSelected { get;
+            set;
+        }
         public Letter()
         {
 
