@@ -22,5 +22,11 @@ namespace ScrabbleBlazor.Client.Services
             return await http.GetJsonAsync<Player>("/api/currentstate/register?identifier=" + identifier);
         }
 
+        public async Task SubmitWord(string identifier, string word)
+        {
+            await http.GetAsync(string.Format("/api/currentstate/SubmitWord?identifier={0}&word={1}", identifier, word));
+        }
+        
+
     }
 }

@@ -1,7 +1,9 @@
 ﻿@inherits BlazorLayoutComponent
+@using Cloudcrate.AspNetCore.Blazor.Browser.Storage;
 @using ScrabbleBlazor.Shared
 @using ScrabbleBlazor.Shared.Model;
 @inject HttpClient Http
+@inject LocalStorage Storage
 
 <h1>@Title</h1>
 
@@ -28,10 +30,8 @@ else
                     </tr>
                 }
             }
-
         </tbody>
     </table>
-    @selectedPlayerLetter
 }
 
 @functions {
@@ -44,18 +44,24 @@ else
     [Parameter]
     Player CurrentPlayer { get; set; }
 
-    private char selectedPlayerLetter;
+    private Letter selectedPlayerLetter;
 
     private string slectedrow = null;
 
     void Clicked(UIEventArgs args, int localI, int localJ)
     {
-        Letter letter = new Letter('f', 3);
-        selectedPlayerLetter = letter.Value;
-
-        TableModel[0].Squares[localI][localJ] = new TableSquare('a');
-        StateHasChanged();
-        Console.WriteLine(localI);
-        Console.WriteLine(localJ);
+        var letterffromstorage = Storage["LetterSelected"];
+        if(letterffromstorage != null)
+        {
+            Console.WriteLine(letterffromstorage);
+            selectedPlayerLetter = new Letter(letterffromstorage[0], 0);
+            Console.WriteLine("selected letter: " + selectedPlayerLetter);
+            TableSquare updatedSquare = new TableSquare(selectedPlayerLetter.Value);
+            TableModel[0].Squares[localI][localJ] = updatedSquare;
+            StateHasChanged();
+            Storage["LetterSelected"] = string.Empty;
+            Console.WriteLine(localI);
+            Console.WriteLine(localJ);
+        }
     }
 }

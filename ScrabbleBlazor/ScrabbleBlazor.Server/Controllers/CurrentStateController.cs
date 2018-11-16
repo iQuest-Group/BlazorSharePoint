@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ScrabbleBlazor.Server.Services;
+using ScrabbleBlazor.Shared;
+using ScrabbleBlazor.Shared.Constants;
 using ScrabbleBlazor.Shared.Model;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -24,6 +26,13 @@ namespace ScrabbleBlazor.Server.Controllers
         public async Task<Player> Register(string identifier)
         {
             return await Game.Instance.EnsurePlayer(identifier);
+        }
+
+        public async Task SubmitWord(string identifier, string word)
+        {
+            var player = await Game.Instance.EnsurePlayer(identifier);
+            await Game.Instance.RemoveFromOwnLetter(player, word);
+            await Game.Instance.AddRandomLetters(player, PlayerConstants.NumberOfPlayerLetters - player.OwnLetters.Count);
         }
     }
 }

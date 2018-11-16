@@ -56,12 +56,16 @@ namespace ScrabbleBlazor.Shared.Model
             return null;           
         }
 
-        public void RemoveFromOwnLetter(Player player, Letter selectedLetter)
+        public async Task RemoveFromOwnLetter(Player player, string wordCreated)
         {
-            player.OwnLetters.Remove(selectedLetter);
+            foreach(char c in wordCreated)
+            {
+                var letterFound = player.OwnLetters.Find(x => x.Value==c);
+                player.OwnLetters.Remove(letterFound);
+            }
         }
 
-        public void AddRandomLetters(Player player, int numberOfLetters)
+        public async Task AddRandomLetters(Player player, int numberOfLetters)
         {
             player.OwnLetters.AddRange(this.LettersBag.GetRandomLetters(numberOfLetters));
         }

@@ -1,22 +1,51 @@
-﻿@using ScrabbleBlazor.Shared.Model;
+﻿@using Cloudcrate.AspNetCore.Blazor.Browser.Storage;
+@using ScrabbleBlazor.Shared.Model;
 
-    @if (Player != null)
+@using ScrabbleBlazor.Client.Services;
+@inject LocalStorage Storage
+
+@inject GameState GameState
+
+@if (Player != null)
+{
+    foreach (var item in Player.OwnLetters)
     {
-        foreach (var item in Player.OwnLetters)
-        {
-            <button type="button" style="visibility: @(item.IsSelected ? "hidden" : "visible")" onclick=@(() => OnSelectLetter(item))>
-                <span style="font-size:20px;">@item.Value</span>
-                <span style="font-size:10px;">@item.Score</span>
-            </button>
-        }
+        <button type="button" style="visibility: @(item.IsSelected ? "hidden" : "visible")" onclick=@(() => OnSelectLetter(item))>
+            <span style="font-size:20px;">@item.Value</span>
+            <span style="font-size:10px;">@item.Score</span>
+        </button>
+    }
+}
+
+<button type="button" onclick=@(() => OnSubmitWord())>Submit</button>
+
+@functions {
+
+    [Parameter] Player Player { get; set; }
+
+    void OnSelectLetter(Letter letter)
+    {
+        letter.IsSelected = !letter.IsSelected;
+
+
+        Storage["LetterSelected"] = letter.Value.ToString();
     }
 
-    @functions {
 
-        [Parameter] Player Player { get; set; }
+    protected async Task OnSubmitWord()
+    {
 
-        void OnSelectLetter(Letter letter)
+        var word = string.Empty;
+        foreach(var c in Player.OwnLetters)
         {
-            letter.IsSelected = !letter.IsSelected;
+            if(c.IsSelected)
+            {
+                word += c.Value;
+            }
         }
+        await GameState.SubmitWord(Player.Identifier, word);
+
+        Player = await GameState.RegisterUser(Player.Identifier);
     }
+
+}
