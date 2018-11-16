@@ -21,7 +21,9 @@ else
                     <tr>
                         @for (var j = 0; j < list.Count; j++)
                         {
-                            <td onclick="@(() => SetSelectedLetter())">@list[j].Letter</td>
+                            var localI = i;
+                            var localJ = j;
+                            <td onclick="@((ev) => Clicked(ev, localI, localJ))">@list[j].Letter</td>
                         }
                     </tr>
                 }
@@ -30,7 +32,6 @@ else
         </tbody>
     </table>
     @selectedPlayerLetter
-    @TableModel.FirstOrDefault().Squares.Count
 }
 
 @functions {
@@ -45,9 +46,16 @@ else
 
     private char selectedPlayerLetter;
 
-    protected async Task SetSelectedLetter()
+    private string slectedrow = null;
+
+    void Clicked(UIEventArgs args, int localI, int localJ)
     {
-        Letter letter = CurrentPlayer.GetSelectedLetter();
-        selectedPlayerLetter = '6';
+        Letter letter = new Letter('f', 3);
+        selectedPlayerLetter = letter.Value;
+
+        TableModel[0].Squares[localI][localJ] = new TableSquare('a');
+        StateHasChanged();
+        Console.WriteLine(localI);
+        Console.WriteLine(localJ);
     }
 }
