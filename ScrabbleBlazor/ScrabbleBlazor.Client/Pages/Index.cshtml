@@ -30,24 +30,23 @@
     
 
     @functions {
-            string CurrentUser;
-            string RegisteredSuccessfully;
-            Player player;
-            List<Player> AllPlayers = new List<Player> { new Player { Identifier = "User1" }, new Player { Identifier = "User2" } };
+                string CurrentUser;
+                string RegisteredSuccessfully;
+                Player player;
+                List<Player> AllPlayers;// = new List<Player> { new Player { Identifier = "User1" }, new Player { Identifier = "User2" } };
 
-    Game game;
+        Game game;
 
-    List<Table> table = null;
+        List<Table> table = null;
 
-    protected override void OnInit()
-    {
-        if (Storage["SUserId"] == null)
+        protected override void OnInit()
         {
-            Storage["SUserId"] = "New player" + DateTime.Now.ToShortTimeString();
+            if (Storage["SUserId"] == null)
+            {
+                Storage["SUserId"] = "New player" + DateTime.Now.ToShortTimeString();
+            }
+            CurrentUser = Storage["SUserId"];
         }
-        CurrentUser = Storage["SUserId"];
-        OnPlayerInit();
-    }
 
         protected async Task OnPlayerInit()
         {
@@ -56,12 +55,13 @@
             player = await GameState.RegisterUser(CurrentUser);
             RegisteredSuccessfully = player == null ? "There are already four players registered to this game!" : "You have been successfully registered! ";
 
-    }
+        }
 
-    protected override async Task OnInitAsync()
-    {
-        List<Game> games = await Http.GetJsonAsync<List<Game>>("api/CurrentState/Get");
-        game = games[0];
-        table = new List<Table>() { game.Table };
-    }
+        protected override async Task OnInitAsync()
+        {
+            List<Game> games = await Http.GetJsonAsync<List<Game>>("api/CurrentState/Get");
+            game = games[0];
+            table = new List<Table>() { game.Table };
+            AllPlayers = game.Players;
+        }
 }
