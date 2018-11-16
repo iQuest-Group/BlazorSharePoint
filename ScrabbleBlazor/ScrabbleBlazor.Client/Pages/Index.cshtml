@@ -34,6 +34,7 @@
 </table>
 
 <button title="Get state" onclick=@(() => RefreshState())>Refresh</button>
+<button title="End turn" onclick=@(() => SendState())>End Turn</button>
 
 @functions {
     string CurrentUser;
@@ -81,5 +82,11 @@
         allPlayers = game.Players;
         table = new List<Table>() { game.Table };
         Console.WriteLine(game.Players.Count.ToString() + "***");
+    }
+
+    protected async Task SendState()
+    {
+        await Http.PostJsonAsync("api/CurrentState/post", game);
+        RefreshState();
     }
 }
