@@ -1,22 +1,51 @@
-﻿@using ScrabbleBlazor.Shared.Model;
+﻿@using Cloudcrate.AspNetCore.Blazor.Browser.Storage;
+@using ScrabbleBlazor.Shared.Model;
 
-    @if (Player != null)
+@using ScrabbleBlazor.Client.Services;
+@inject LocalStorage Storage
+
+@inject GameState GameState
+
+@if (Player != null)
+{
+    foreach (var item in Player.OwnLetters)
     {
-        foreach (var item in Player.OwnLetters)
+        <button type="button" style="visibility: @(item.IsSelected ? "hidden" : "visible")" onclick=@(() => OnSelectLetter(item))>
+            <span style="font-size:20px;">@item.Value</span>
+            <span style="font-size:10px;">@item.Score</span>
+        </button>
+    }
+}
+
+<button type="button" onclick=@(() => OnSubmitWord())></button>
+
+@functions {
+
+    [Parameter] Player Player { get; set; }
+
+    void OnSelectLetter(Letter letter)
+    {
+        letter.IsSelected = !letter.IsSelected;
+        if (Storage["CurrentWord"] != null)
         {
-            <button type="button" style="visibility: @(item.IsSelected ? "hidden" : "visible")" onclick=@(() => OnSelectLetter(item))>
-                <span style="font-size:20px;">@item.Value</span>
-                <span style="font-size:10px;">@item.Score</span>
-            </button>
+            Storage["CurrentWord"] = Storage["CurrentWord"] + letter.Value;
+        }
+        else
+        {
+            Storage["CurrentWord"] = letter.Value.ToString();
         }
     }
 
-    @functions {
 
-        [Parameter] Player Player { get; set; }
+    protected async Task OnSubmitWord()
+    {
+        await GameState.SubmitWord(Player.Identifier, Storage["CurrentWord"]);
 
-        void OnSelectLetter(Letter letter)
+
+        if (Storage["CurrentWord"] != null)
         {
-            letter.IsSelected = !letter.IsSelected;
+            Storage["CurrentWord"] = string.Empty;
         }
     }
+
+}
