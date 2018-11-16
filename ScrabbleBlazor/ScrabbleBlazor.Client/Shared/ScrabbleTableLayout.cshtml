@@ -54,7 +54,7 @@ else
         if(letterffromstorage != null)
         {
             Console.WriteLine(letterffromstorage);
-            selectedPlayerLetter = new Letter(letterffromstorage[0], 0);
+            selectedPlayerLetter = new Letter(letterffromstorage, 0);
             Console.WriteLine("selected letter: " + selectedPlayerLetter);
             TableSquare updatedSquare = new TableSquare(selectedPlayerLetter.Value);
             TableModel[0].Squares[localI][localJ] = updatedSquare;
