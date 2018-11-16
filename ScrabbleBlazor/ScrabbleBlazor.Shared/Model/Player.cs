@@ -18,5 +18,17 @@
             this.Identifier = identifier;
             this.OwnLetters = letters;
         }
+
+        public Letter GetSelectedLetter()
+        {
+           foreach(Letter letter in this.OwnLetters)
+            {
+                if(letter.IsSelected)
+                {
+                    return letter;
+                }
+            }
+            return null;
+        }
     }
 }
