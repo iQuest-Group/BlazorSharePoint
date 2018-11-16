@@ -3,6 +3,7 @@
 @page "/"
 
 <h1>Hello, @CurrentUser!</h1>
+<input bind=CurrentUser/> <button  title="Init player" onclick=@(() => OnPlayerInit())>Update Name</button>
 
 Welcome to your new app.
 
@@ -12,11 +13,15 @@ Welcome to your new app.
 
     protected override void OnInit()
     {
-        if (Storage["Username"] == null)
+        if (Storage["SUserId"] == null)
         {
-            Storage["Username"] = "test" + DateTime.Now.ToShortTimeString();
+            Storage["SUserId"] = "New player" + DateTime.Now.ToShortTimeString();
         }
-        CurrentUser = Storage["Username"];
+        CurrentUser = Storage["SUserId"];
+    }
 
+    protected void OnPlayerInit()
+    {
+        Storage["SUserId"] = CurrentUser;
     }
 }
