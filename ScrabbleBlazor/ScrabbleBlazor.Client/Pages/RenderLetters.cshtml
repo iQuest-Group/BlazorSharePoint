@@ -44,6 +44,8 @@
             }
         }
         await GameState.SubmitWord(Player.Identifier, word);
+
+        Player = await GameState.RegisterUser(Player.Identifier);
     }
 
 }
