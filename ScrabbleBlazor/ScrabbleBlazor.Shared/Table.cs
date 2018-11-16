@@ -6,15 +6,18 @@ namespace ScrabbleBlazor.Shared
 {
     public class Table
     {
-        private TableSquare[,] table = new TableSquare[15, 15];
-
-        public TableSquare[,] Matrix
+        public Table()
         {
-            get
-            {
-                return table;
-            }
+
         }
+
+        public List<List<TableSquare>> Squares
+        {
+            get;
+            set;
+        }
+
+        public int PlayerCount { get; set; }
 
         //public GetSquare(line, columns)
         //{

@@ -2,44 +2,40 @@
 @page "/fetchdata"
 @inject HttpClient Http
 
-<h1>Weather forecast</h1>
+<h1>Scrabble Game</h1>
 
-<p>This component demonstrates fetching data from the server.</p>
-
-@if (forecasts == null)
+@if (tableSquares == null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
     <table class="table">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Temp. (C)</th>
-                <th>Temp. (F)</th>
-                <th>Summary</th>
-            </tr>
-        </thead>
         <tbody>
-            @foreach (var forecast in forecasts)
+            @foreach (var x in tableSquares)
             {
-                <tr>
-                    <td>@forecast.Date.ToShortDateString()</td>
-                    <td>@forecast.TemperatureC</td>
-                    <td>@forecast.TemperatureF</td>
-                    <td>@forecast.Summary</td>
-                </tr>
+                @x.Squares.Count
+                @x.PlayerCount
             }
+            @*@for (var i = 0; i < tableSquares.Count; i++)
+        {
+            <tr>
+                @for (var j = 0; j < tableSquares[i].Count; j++)
+                {
+
+                    <td>@tableSquares[i][j].Letter</td>
+                }
+            </tr>
+        }*@
         </tbody>
     </table>
 }
 
 @functions {
-    WeatherForecast[] forecasts;
+    IEnumerable<Table> tableSquares = new List<Table>();
 
     protected override async Task OnInitAsync()
     {
-        forecasts = await Http.GetJsonAsync<WeatherForecast[]>("api/SampleData/WeatherForecasts");
+        tableSquares = await Http.GetJsonAsync<List<Table>>("api/SampleData/GetScrabbleTable");
     }
 }
