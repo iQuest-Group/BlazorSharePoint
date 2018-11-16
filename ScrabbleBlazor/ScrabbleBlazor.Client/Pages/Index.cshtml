@@ -21,8 +21,8 @@
         <td>
             <ScrabbleTableLayout Title="Scrabble Game" TableModel=table CurrentPlayer=player />
         </td>
-        <td>
-            <PlayersList Players=allPlayers />
+        <td valign="top">
+            <PlayersList Players=allPlayers  />
         </td>
      </tr>
     <tr>
@@ -34,6 +34,8 @@
 
 
 </table>
+
+<button title="Get state" onclick=@(() => RefreshState())>Refresh</button>
 
 @functions {
     string CurrentUser;
@@ -69,5 +71,16 @@
         game = games[0];
         allPlayers = game.Players;
         table = new List<Table>() { game.Table };
+        Console.WriteLine(allPlayers.Count.ToString() + "***");
+        this.StateHasChanged();
+        base.StateHasChanged();
+    }
+
+    protected async Task RefreshState() {
+        List<Game> games = await Http.GetJsonAsync<List<Game>>("api/CurrentState/Get");
+        game = games[0];
+        allPlayers = game.Players;
+        table = new List<Table>() { game.Table };
+        Console.WriteLine(game.Players.Count.ToString() + "***");
     }
 }

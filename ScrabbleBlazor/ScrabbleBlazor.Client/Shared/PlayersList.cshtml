@@ -1,6 +1,11 @@
 ﻿@using ScrabbleBlazor.Shared.Model;
 
 <table>
+    <tr>
+        <td>
+            <b>All users</b>
+        </td>
+    </tr>
     @if (Players != null)
     {
         foreach (var player in Players)
@@ -11,6 +16,7 @@
                 </td>
             </tr>
         }
+        @Players.Count
     }
 </table>
 
