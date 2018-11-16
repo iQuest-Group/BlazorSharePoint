@@ -1,7 +1,39 @@
-﻿@page "/"
+﻿@using Cloudcrate.AspNetCore.Blazor.Browser.Storage;
+@using ScrabbleBlazor.Client.Services;
+@inject LocalStorage Storage
+@inject GameState GameState
+@page "/"
 
-<h1>Hello, world!</h1>
+       
+
+<h1>Hello, @CurrentUser!</h1>
+<input bind=CurrentUser />
+<button title="Init player" onclick=@(() => OnPlayerInit())>Update Name</button>
 
 Welcome to your new app.
 
+<input bind="@RegisteredSuccessfully"/>
 <SurveyPrompt Title="How is Blazor working for you?" />
+@functions {
+    string CurrentUser;
+    string RegisteredSuccessfully;
+
+    protected override void OnInit()
+    {
+        if (Storage["SUserId"] == null)
+        {
+            Storage["SUserId"] = "New player" + DateTime.Now.ToShortTimeString();
+        }
+        CurrentUser = Storage["SUserId"];
+        OnPlayerInit();
+    }
+
+    protected void OnPlayerInit()
+    {
+        Storage["SUserId"] = CurrentUser;
+
+        var player = GameState.RegisterUser(CurrentUser);
+        RegisteredSuccessfully = player == null ? "There are already four players registered to this game!" : "You have been successfully registered! ";
+
+    }
+}
