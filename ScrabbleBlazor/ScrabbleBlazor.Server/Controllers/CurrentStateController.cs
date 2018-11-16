@@ -15,6 +15,12 @@ namespace ScrabbleBlazor.Server.Controllers
             return new List<Game> { Game.Instance };
         }
 
+        public void Post(Game game)
+        {
+            var gameInstance = Game.Instance;
+            gameInstance = game;
+        }
+
         public string ChangePlayer(string identifier)
         {
             CurrentStateService.Update(identifier);
