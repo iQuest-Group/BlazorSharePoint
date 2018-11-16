@@ -16,52 +16,41 @@
     @RegisteredSuccessfully
 </h2>
 
-<table>
-    <tr>
-        <td><ScrabbleTableLayout Title="Scrabble Game" TableModel=table /></td>
-        <td><PlayersList Players="AllPlayers"></PlayersList></td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <RenderLetters Player="player"></RenderLetters>
-        </td>
-    </tr>
-</table>
-    
+<RenderLetters Player="player"></RenderLetters>
 
-    @functions {
-                string CurrentUser;
-                string RegisteredSuccessfully;
-                Player player;
-                List<Player> AllPlayers;// = new List<Player> { new Player { Identifier = "User1" }, new Player { Identifier = "User2" } };
+<ScrabbleTableLayout Title="Scrabble Game" TableModel=table />
 
-        Game game;
+@functions {
+    string CurrentUser;
+    string RegisteredSuccessfully;
+    Player player;
 
-        List<Table> table = null;
+    Game game;
 
-        protected override void OnInit()
+    List<Table> table = null;
+
+    protected override void OnInit()
+    {
+        if (Storage["SUserId"] == null)
         {
-            if (Storage["SUserId"] == null)
-            {
-                Storage["SUserId"] = "New player" + DateTime.Now.ToShortTimeString();
-            }
-            CurrentUser = Storage["SUserId"];
+            Storage["SUserId"] = "New player" + DateTime.Now.ToShortTimeString();
         }
+        CurrentUser = Storage["SUserId"];
+    }
 
-        protected async Task OnPlayerInit()
-        {
-            Storage["SUserId"] = CurrentUser;
+    protected async Task OnPlayerInit()
+    {
+        Storage["SUserId"] = CurrentUser;
 
-            player = await GameState.RegisterUser(CurrentUser);
-            RegisteredSuccessfully = player == null ? "There are already four players registered to this game!" : "You have been successfully registered! ";
+        player = await GameState.RegisterUser(CurrentUser);
+        RegisteredSuccessfully = player == null ? "There are already four players registered to this game!" : "You have been successfully registered! ";
 
-        }
+    }
 
-        protected override async Task OnInitAsync()
-        {
-            List<Game> games = await Http.GetJsonAsync<List<Game>>("api/CurrentState/Get");
-            game = games[0];
-            table = new List<Table>() { game.Table };
-            AllPlayers = game.Players;
-        }
+    protected override async Task OnInitAsync()
+    {
+        List<Game> games = await Http.GetJsonAsync<List<Game>>("api/CurrentState/Get");
+        game = games[0];
+        table = new List<Table>() { game.Table };
+    }
 }

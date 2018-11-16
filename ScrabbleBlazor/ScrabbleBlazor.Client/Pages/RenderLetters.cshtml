@@ -4,7 +4,7 @@
     {
         foreach (var item in Player.OwnLetters)
         {
-            <button type="button">
+            <button type="button" onclick="(() => OnSelectLetter(item))">
                 <span style="font-size:20px;">@item.Value</span>
                 <span style="font-size:10px;">@item.Score</span>
             </button>
@@ -15,4 +15,8 @@
 
         [Parameter] Player Player { get; set; }
 
+        protected async Task OnSelectLetter(Letter letter)
+        {
+            letter.IsSelected = true;
+        }
     }
