@@ -10,7 +10,7 @@
 {
     foreach (var item in Player.OwnLetters)
     {
-        <button type="button" style="visibility: @(item.IsSelected ? "hidden" : "visible")" onclick=@(() => OnSelectLetter(item))>
+        <button type="button" style="visibility: @(item.IsSelected ? "hidden" : "visible"); @(!Player.Identifier.Equals(Game.CurrentPlayer) ? "opacity: 0.65;cursor: not-allowed;" : "")" onclick=@(() => OnSelectLetter(item))>
             <span style="font-size:20px;">@item.Value</span>
             <span style="font-size:10px;">@item.Score</span>
         </button>
@@ -22,6 +22,9 @@
 @functions {
 
     [Parameter] Player Player { get; set; }
+
+
+    [Parameter] Game Game { get; set; }
 
     void OnSelectLetter(Letter letter)
     {
@@ -46,6 +49,8 @@
         await GameState.SubmitWord(Player.Identifier, word);
 
         Player = await GameState.RegisterUser(Player.Identifier);
+
+
     }
 
 }

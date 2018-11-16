@@ -36,6 +36,7 @@ namespace ScrabbleBlazor.Server.Controllers
             var player = await Game.Instance.EnsurePlayer(identifier);
             await Game.Instance.RemoveFromOwnLetter(player, word);
             await Game.Instance.AddRandomLetters(player, PlayerConstants.NumberOfPlayerLetters - player.OwnLetters.Count);
+            await Game.Instance.SelectNextPlayer(player);
         }
     }
 }

@@ -38,10 +38,16 @@ namespace ScrabbleBlazor.Shared.Model
 
         public async Task<Player> EnsurePlayer(string identifier)
         {
-            foreach(Player player in this.Players)
+            if (string.IsNullOrEmpty(CurrentPlayer))
+            {
+                CurrentPlayer = identifier;
+            }
+
+            foreach (Player player in this.Players)
             {
                 if (player.Identifier.Equals(identifier))
                 {
+
                     return player;
                 }
             }
@@ -49,7 +55,7 @@ namespace ScrabbleBlazor.Shared.Model
             if (this.Players.Count < PlayerConstants.NumberOfPlayers)
             {
                 var player = new Player(identifier, this.LettersBag.GetRandomLetters(PlayerConstants.NumberOfPlayerLetters));
-                this.Players.Add(player);
+                this.Players.Add(player);              
                 return player;
             }
 
@@ -58,9 +64,9 @@ namespace ScrabbleBlazor.Shared.Model
 
         public async Task RemoveFromOwnLetter(Player player, string wordCreated)
         {
-            foreach(char c in wordCreated)
+            foreach(var c in wordCreated)
             {
-                var letterFound = player.OwnLetters.Find(x => x.Value==c.ToString());
+                var letterFound = player.OwnLetters.Find(x => x.Value.Equals(c.ToString()));
                 player.OwnLetters.Remove(letterFound);
             }
         }
@@ -68,6 +74,30 @@ namespace ScrabbleBlazor.Shared.Model
         public async Task AddRandomLetters(Player player, int numberOfLetters)
         {
             player.OwnLetters.AddRange(this.LettersBag.GetRandomLetters(numberOfLetters));
+        }
+
+        public async Task SelectNextPlayer(Player player)
+        {
+            if (Players.Count > 1)
+            {
+                for(int i=0;i<Players.Count;i++)
+                {
+                    if (player.Identifier.Equals(Players[i].Identifier) && Players.Count > 1)
+                    {
+                        if (i < Players.Count - 1)
+                        {
+                            CurrentPlayer = Players[i+1].Identifier;
+                            return;
+                        }
+                        else
+                        {
+                            CurrentPlayer = Players[0].Identifier;
+                            return;
+                        }
+                    }
+                }
+            }
+            
         }
     }
 }
