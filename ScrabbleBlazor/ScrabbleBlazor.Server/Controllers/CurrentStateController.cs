@@ -25,5 +25,12 @@ namespace ScrabbleBlazor.Server.Controllers
         {
             return await Game.Instance.EnsurePlayer(identifier);
         }
+
+        public async Task SubmitWord(string identifier, string word)
+        {
+            var player = await Game.Instance.EnsurePlayer(identifier);
+            await Game.Instance.RemoveFromOwnLetter(player, word);
+            await Game.Instance.AddRandomLetters(player, word.Length);
+        }
     }
 }
