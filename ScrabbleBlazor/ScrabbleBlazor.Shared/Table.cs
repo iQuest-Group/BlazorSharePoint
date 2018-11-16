@@ -8,7 +8,18 @@ namespace ScrabbleBlazor.Shared
     {
         public Table()
         {
+            Squares = new List<List<TableSquare>>();
 
+            for (int i = 0;i<15;i++)
+            {
+                List<TableSquare> row = new List<TableSquare>();
+
+                for(int j=0;j<15;j++)
+                {
+                    row.Add(new TableSquare(null));
+                }
+                Squares.Add(row);
+            }
         }
 
         public List<List<TableSquare>> Squares

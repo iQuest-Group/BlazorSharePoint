@@ -26,7 +26,7 @@ namespace ScrabbleBlazor.Server.Controllers
             });
         }
 
-        public IEnumerable<Table> GetScrabbleTable()
+        public async Task<IEnumerable<Table>> GetScrabbleTable()
         {
             Table scrabbbleTable = new Table();
             List<List<TableSquare>> table = new List<List<TableSquare>>

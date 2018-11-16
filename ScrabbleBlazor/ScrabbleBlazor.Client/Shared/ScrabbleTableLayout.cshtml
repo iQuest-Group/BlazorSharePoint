@@ -12,16 +12,20 @@ else
 {
     <table class="table table-bordered">
         <tbody>
-                @for (var i = 0; i < @TableModel.Squares.Count; i++)
+            @foreach (var x in TableModel)
+            {
+                @for (var i = 0; i < x.Squares.Count; i++)
                 {
-                    var list = @TableModel.Squares[i];
+                    var list = x.Squares[i];
                     <tr>
                         @for (var j = 0; j < list.Count; j++)
                         {
-                            <td>@list[i].Letter</td>
+                            <td>@list[j].Letter</td>
                         }
                     </tr>
                 }
+            }
+
         </tbody>
     </table>
 }
@@ -31,12 +35,5 @@ else
     string Title { get; set; }
 
     [Parameter]
-    Table TableModel { get; set; }
-
-    // IEnumerable<Table> table = new List<Table>();
-
-    //protected override async Task OnInitAsync()
-    //{
-    //    table = await Http.GetJsonAsync<List<Table>>("api/SampleData/GetScrabbleTable");
-    //}
+    List<Table> TableModel { get; set; }
 }
