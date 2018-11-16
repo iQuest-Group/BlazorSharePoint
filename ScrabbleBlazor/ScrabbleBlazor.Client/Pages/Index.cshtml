@@ -1,7 +1,22 @@
-﻿@page "/"
+﻿@using Cloudcrate.AspNetCore.Blazor.Browser.Storage;
+@inject LocalStorage Storage
+@page "/"
 
-<h1>Hello, world!</h1>
+<h1>Hello, @CurrentUser!</h1>
 
 Welcome to your new app.
 
 <SurveyPrompt Title="How is Blazor working for you?" />
+@functions {
+    string CurrentUser;
+
+    protected override void OnInit()
+    {
+        if (Storage["Username"] == null)
+        {
+            Storage["Username"] = "test" + DateTime.Now.ToShortTimeString();
+        }
+        CurrentUser = Storage["Username"];
+
+    }
+}

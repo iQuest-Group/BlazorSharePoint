@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ScrabbleBlazor.Shared
+﻿namespace ScrabbleBlazor.Shared
 {
-    public class PlayerConstants
+    public static class PlayerConstants
     {
         public static int NumberOfPlayers = 4;
 

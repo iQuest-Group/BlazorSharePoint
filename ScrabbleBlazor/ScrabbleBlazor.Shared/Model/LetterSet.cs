@@ -1,12 +1,17 @@
-﻿namespace ScrabbleBlazor.Shared
+﻿namespace ScrabbleBlazor.Shared.Model
 {
+    using ScrabbleBlazor.Shared.Constants;
     using System;
     using System.Collections.Generic;
-    using System.Text;
 
     public class LetterSet
     {
         public List<Letter> AllLetters { get; set; }
+
+        public LetterSet()
+        {
+            this.InitializeLetterSet();
+        }
 
         public List<Letter> GetRandomLetters(int numberOfExpectedLetters)
         {
@@ -28,9 +33,16 @@
             return AllLetters.Count;
         }
 
-        public void InitializeLetterSet()
+        private void InitializeLetterSet()
         {
-
+            foreach(var letterConstant in LetterConstants.LettersGame)
+            {
+                var letter = new Letter(letterConstant.Item1, letterConstant.Item2);
+                for (int i = 0; i < letterConstant.Item3;i++)
+                {
+                    this.AllLetters.Add(letter);
+                }
+            }
         }
     }
 }
