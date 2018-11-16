@@ -19,7 +19,7 @@
 <table>
     <tr>
         <td>
-            <ScrabbleTableLayout Title="Scrabble Game" TableModel=table CurrentPlayer=player />
+            <ScrabbleTableLayout Title="Scrabble Game" TableModel=table CurrentPlayer=currentGamePlayer />
         </td>
         <td valign="top">
             <PlayersList Players=allPlayers  />
@@ -31,9 +31,6 @@
         </td>
     </tr>
     
-
-
-<ScrabbleTableLayout Title="Scrabble Game" TableModel=table CurrentPlayer=currentGamePlayer />
 </table>
 
 <button title="Get state" onclick=@(() => RefreshState())>Refresh</button>
