@@ -19,7 +19,10 @@
 <table>
     <tr>
         <td>
-            <ScrabbleTableLayout Title="Scrabble Game" TableModel=table CurrentPlayer=currentGamePlayer />
+            @if (game != null)
+            {
+                <ScrabbleTableLayout Title="Scrabble Game" TableModel=game.Table CurrentPlayer=currentGamePlayer />
+            }
         </td>
         <td valign="top">
             <PlayersList Players=allPlayers  />
@@ -44,7 +47,6 @@
 
     Game game;
 
-    List<Table> table = null;
     protected override void OnInit()
     {
         if (Storage["SUserId"] == null)
@@ -74,21 +76,16 @@
         List<Game> games = await Http.GetJsonAsync<List<Game>>("api/CurrentState/Get");
         game = games[0];
         allPlayers = game.Players;
-        table = new List<Table>() { game.Table };
         Console.WriteLine(allPlayers.Count.ToString() + "***");
         this.StateHasChanged();
         base.StateHasChanged();
     }
 
     protected async Task RefreshState() {
-
-
-        await Http.PostJsonAsync<List<Game>>("/api/CurrentState/Get", game);
-
+        
         List<Game> games = await Http.GetJsonAsync<List<Game>>("api/CurrentState/Get");
         game = games[0];
         allPlayers = game.Players;
-        table = new List<Table>() { game.Table };
 
         Storage["SUserId"] = CurrentUser;
 
@@ -99,10 +96,6 @@
 
     protected async Task SendState()
     {
-
-        game.LettersBag = null;
-        game.Players[0].OwnLetters = null;
-        //game.Table.Squares[0][0].Letter = 'A';
         await Http.PostJsonAsync("api/CurrentState/Post", new List<Game> { game});
         await RefreshState();
     }

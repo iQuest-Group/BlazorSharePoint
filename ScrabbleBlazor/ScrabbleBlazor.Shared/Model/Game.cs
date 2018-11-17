@@ -30,6 +30,7 @@ namespace ScrabbleBlazor.Shared.Model
                 if (instance == null)
                 {
                     instance = new Game();
+                    instance.Table.Initialize();
                 }
 
                 return instance;

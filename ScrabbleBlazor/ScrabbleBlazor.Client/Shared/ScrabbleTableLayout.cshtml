@@ -15,20 +15,17 @@ else
 {
     <table class="table table-bordered">
         <tbody>
-            @foreach (var x in TableModel)
+            @for (var i = 0; i < TableModel.Squares.Count; i++)
             {
-                @for (var i = 0; i < x.Squares.Count; i++)
-                {
-                    var list = x.Squares[i];
-                    <tr>
-                        @for (var j = 0; j < list.Count; j++)
-                        {
-                            var localI = i;
-                            var localJ = j;
-                            <td style="width:45px;height:45px" onclick="@((ev) => Clicked(ev, localI, localJ))">@list[j].Letter</td>
-                        }
-                    </tr>
-                }
+                var list = TableModel.Squares[i];
+                <tr>
+                    @for (var j = 0; j < list.Count; j++)
+                    {
+                        var localI = i;
+                        var localJ = j;
+                        <td style="width:45px;height:45px" onclick="@((ev) => Clicked(ev, localI, localJ))">@list[j].Letter</td>
+                    }
+                </tr>
             }
         </tbody>
     </table>
@@ -39,7 +36,7 @@ else
     string Title { get; set; }
 
     [Parameter]
-    List<Table> TableModel { get; set; }
+    Table TableModel { get; set; }
 
     [Parameter]
     Player CurrentPlayer { get; set; }
@@ -64,7 +61,7 @@ else
             selectedPlayerLetter = new Letter(letterffromstorage, 0);
             Console.WriteLine("selected letter: " + selectedPlayerLetter);
             TableSquare updatedSquare = new TableSquare(selectedPlayerLetter.Value);
-            TableModel[0].Squares[localI][localJ] = updatedSquare;
+            TableModel.Squares[localI][localJ] = updatedSquare;
             StateHasChanged();
             Storage["LetterSelected"] = string.Empty;
             Console.WriteLine(localI);

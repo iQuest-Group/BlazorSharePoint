@@ -21,8 +21,8 @@ namespace ScrabbleBlazor.Server.Controllers
         [HttpPost]
         public async Task<IEnumerable<Game>> Post([FromBody] IEnumerable<Game> games)
         {
-            var gameInstance = Game.Instance;
-            gameInstance = games.ToList()[0];
+            Game.Instance.Table = games.First().Table;
+            Game.Instance.Players = games.First().Players;
             return null;
         }
 
